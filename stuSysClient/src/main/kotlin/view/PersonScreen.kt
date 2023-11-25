@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import sever.dao.StudentDAO
 import define.borderColor
 import sever.Student
 import widget.headCard
@@ -48,7 +47,7 @@ fun personScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
             Spacer(modifier = Modifier.width(10.dp))
             Button(
                 onClick = {
-                    studentReturn(StudentDAO().getStudent(student.stuNum))
+                    studentReturn(student)
                     screenNum(6)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Black),

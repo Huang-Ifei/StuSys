@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import define.primary
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import sever.Student
 import sever.StudentList
@@ -70,7 +69,6 @@ fun outputScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
         label = "",
         animationSpec = tween(500)
     )
-
     Box() {
         Column {
             Box(modifier = Modifier.height(55.dp)) {

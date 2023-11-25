@@ -11,13 +11,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import define.borderColor
 import sever.Student
-import sever.dao.SystemSettings
-import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.FileReader
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun settingsScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Student) -> Unit) {
     var username by remember { mutableStateOf("") }
@@ -42,28 +40,6 @@ fun settingsScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (S
         Text(text = "数据库基础设置：", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(5.dp))
         Divider(color = borderColor)
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "设置数据库账号：", fontWeight = FontWeight.SemiBold)
-            OutlinedTextField(
-                value = username,
-                onValueChange = {username=it;SystemSettings().setUsername(username)},
-                textStyle = TextStyle(fontSize = 16.sp),
-                singleLine = true
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "设置数据库密码：", fontWeight = FontWeight.SemiBold)
-            OutlinedTextField(
-                value = password,
-                onValueChange = {password=it;SystemSettings().setPassword(password)},
-                textStyle = TextStyle(fontSize = 16.sp),
-                singleLine = true
-            )
-        }
         Spacer(modifier = Modifier.height(20.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(10.dp))

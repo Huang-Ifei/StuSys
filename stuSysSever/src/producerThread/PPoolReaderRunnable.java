@@ -37,6 +37,12 @@ public class PPoolReaderRunnable implements Runnable {
                 } else if (message.getMesType().equals(MessageType.MESSAGE_COMM_MES)) {
                     System.out.println("Get"+message.getClassName()+message.getContent());
                     arrayList.add(message);
+                } else if (message.getMesType().equals(MessageType.MESSAGE_CHANGE_STU)){
+                    System.out.println("Change"+message.getClassName()+message.getContent());
+                    arrayList.add(message);
+                }else if (message.getMesType().equals(MessageType.MESSAGE_DELETE_STU)){
+                    System.out.println("Delete"+message.getClassName()+message.getContent());
+                    arrayList.add(message);
                 } else {
                     System.out.println("This is other type message,sever will not do anything...");
                 }

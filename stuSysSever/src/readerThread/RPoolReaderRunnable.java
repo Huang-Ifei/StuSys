@@ -2,6 +2,7 @@ package readerThread;
 
 import sever.MessageType;
 import sever.Message;
+import sever.Student;
 import sever.StudentList;
 import service.ReadOut;
 
@@ -18,8 +19,8 @@ public class RPoolReaderRunnable implements Runnable {
 
     @Override
     public void run() {
-        ObjectInputStream ois = null;
-        ObjectOutputStream oos = null;
+        ObjectInputStream ois;
+        ObjectOutputStream oos;
         try {
             ois = new ObjectInputStream(this.socket.getInputStream());
             Message message = (Message) ois.readObject();
@@ -34,6 +35,13 @@ public class RPoolReaderRunnable implements Runnable {
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 bw.write(classList);
                 bw.close();
+            } else if (message.getMesType().equals(MessageType.MESSAGE_READ_BY_ID)){
+                Student student = readOut.readByID(message);
+                oos = new ObjectOutputStream(socket.getOutputStream());
+                oos.writeObject(student);
+                oos.close();
+            }else {
+                System.out.println("Sever get a others type message");
             }
         } catch (SocketException e) {
             System.out.println("Client off");

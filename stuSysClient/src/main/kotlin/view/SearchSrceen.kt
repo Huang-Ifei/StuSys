@@ -12,10 +12,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import sever.dao.StudentDAO
 import define.errorColor
 import sever.Student
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun searchScreen(screenNum:(Int)->Unit,studentReturn: (Student)->Unit) {
     var text by remember { mutableStateOf("") }
@@ -44,20 +44,31 @@ fun searchScreen(screenNum:(Int)->Unit,studentReturn: (Student)->Unit) {
                     contentDescription = null,
                     modifier = Modifier.size(30.dp)
                         .clickable {
+                            var num = 0L
                             try {
-                                student= StudentDAO().getStudent(text.toLong())
+                                num=text.toLong()
                             } catch (e: Exception) {
                                 r1 = true
+                            }
+                            if (!r1){
+                                val t = Thread{
+                                    student= Sever.getAStu(num)
+                                }
+                                t.start()
                             }
                         },
                 )
             }
         )
         Spacer(modifier = Modifier.height(5.dp))
-        if (student.name!=""&&student.name!="未找到学生"){
+        if (student.name!=""&&student.name!="未找到学生"&&student.name!="IO错误"&&student.name!="程序损坏！"){
             r1=false
             studentReturn(student)
             screenNum(3)
+        }else if (student.name=="IO错误"){
+            Text(text = "IO错误", color = errorColor)
+        }else if (student.name=="程序损坏！"){
+            Text(text = "程序可能已经损坏！ClassNotFound！", color = errorColor)
         }else if (student.name=="未找到学生"){
             r1=true
             Text(text = "未找到学生", color = errorColor)

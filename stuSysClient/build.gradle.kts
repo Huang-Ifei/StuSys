@@ -21,8 +21,8 @@ dependencies {
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation("mysql:mysql-connector-java:8.0.28")
-    implementation("org.jetbrains.compose.material3:material3-desktop:1.2.1")
-    implementation("com.alibaba.fastjson2:fastjson2:2.0.6")
+    implementation("org.jetbrains.compose.material3:material3-desktop:1.4.0")
+    implementation("com.alibaba.fastjson2:fastjson2:2.0.25")
 }
 
 compose.desktop {

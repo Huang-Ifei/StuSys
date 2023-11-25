@@ -1,5 +1,7 @@
 package service;
 
+import sever.Message;
+import sever.Student;
 import sever.StudentList;
 //import org.json.JSONObject;
 import com.alibaba.fastjson2.JSONObject;
@@ -45,5 +47,23 @@ public class ReadOut {
             }
         }
         return classes;
+    }
+    public Student readByID(Message message){
+        String filePath = "database\\" + message.getClassName() ;
+        JSONObject json = JSONObject.parseObject(message.getContent());
+        Long stuNum = json.getLong("stuNum");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = br.readLine()) != null) {
+                JSONObject jb = JSONObject.parseObject(line);
+                if ( stuNum.equals(jb.getLong("stuNum"))){
+                    return new Student(jb.getLong("stuNum"),jb.getString("name"), jb.getDouble("point"));
+                }
+            }
+        }catch (Exception e){
+            return new Student(0,"服务器错误",0);
+        }
+        return new Student(0,"未找到学生",0);
     }
 }

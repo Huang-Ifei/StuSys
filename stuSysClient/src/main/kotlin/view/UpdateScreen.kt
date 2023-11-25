@@ -12,7 +12,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import sever.dao.StudentDAO
 import define.borderColor
 import define.errorColor
 import sever.Student
@@ -24,10 +23,11 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
     var stuNum by remember { mutableStateOf(student.stuNum.toString()) }
     var name by remember { mutableStateOf(student.name) }
     var point by remember { mutableStateOf(student.point.toString()) }
+    var netError by remember { mutableStateOf(false) }
     var r1 by remember { mutableStateOf(false) }
     var r2 by remember { mutableStateOf(false) }
     var r3 by remember { mutableStateOf(false) }
-    var sqlSystemFailed by remember { mutableStateOf(false) }
+    var buttonText by remember { mutableStateOf("确认更新信息") }
     if (!isTure) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -45,7 +45,8 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
                 isError = r1,
                 modifier = Modifier.width(280.dp),
                 singleLine = true,
-                textStyle = TextStyle(fontSize = 16.sp)
+                textStyle = TextStyle(fontSize = 16.sp),
+                readOnly = true
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = "输入姓名：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
@@ -70,16 +71,17 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
             )
             if (r1 != false || r2 != false || r3 != false) {
                 Text(text = "输入的数据有误", color = errorColor)
-                Spacer(modifier = Modifier.height(5.dp))
-            }else if (sqlSystemFailed==true){
-                Text(text = "数据库操作出错", color = errorColor)
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = Modifier.height(2.dp))
+            } else if(netError){
+                Text(text = "服务器请求失败", color = errorColor)
+                Spacer(modifier = Modifier.height(2.dp))
             }
             else {
                 Spacer(modifier = Modifier.height(25.dp))
             }
             Button(
                 onClick = {
+                    buttonText="向服务器发送信息中..."
                     var input = true
                     r1 = false
                     r2 = false
@@ -87,8 +89,10 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
                     var a = 0L
                     var b = ""
                     var c = 0.0
+                    var d = ""
                     try {
                         a = stuNum.toLong()
+                        d= (a/100).toString()
                     } catch (e: Exception) {
                         input = false
                         r1 = true
@@ -110,21 +114,24 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
                         r3 = true
                     }
                     if (input) {
-                        val studentDAO = StudentDAO()
-                        studentDAO.updateByNum(student.stuNum,a,b,c)
-                        if (studentDAO.errorMessage==""){
-                            stuNum = ""
-                            name = ""
-                            point = ""
-                            isTure = true
-                        }else{
-                            sqlSystemFailed=true
+                        val t = Thread{
+                            if (Sever.changeAStu(d,a,b,c).equals("Success")){
+                                stuNum = ""
+                                name = ""
+                                point = ""
+                                netError = false
+                                isTure = true
+                            }else {
+                                netError = true
+                            }
+                            buttonText="确认录入信息"
                         }
+                        t.start()
                     }
                 }, modifier = Modifier.size(280.dp, 55.dp),
                 shape = AbsoluteRoundedCornerShape(5.dp)
             ) {
-                Text("确认更新信息")
+                Text(buttonText)
             }
             Spacer(modifier = Modifier.height(35.dp))
         }

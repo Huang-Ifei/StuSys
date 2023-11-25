@@ -44,9 +44,6 @@ fun main() = application {
             Surface(
                 color = Color.White,
                 modifier = Modifier.fillMaxSize()
-                //.padding(start = 5.dp, top = 5.dp, end = 10.dp, bottom = 10.dp),
-                //shape = AbsoluteRoundedCornerShape(10.dp),
-                //shadowElevation = 4.dp
             ) {
                 Column {
                     Row(
@@ -63,26 +60,6 @@ fun main() = application {
                         Column {
                             Spacer(modifier = Modifier.height(15.dp))
                             Box {
-                         /*       Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.height(22.dp)) {
-                                    Spacer(modifier = Modifier.width(20.dp))
-                                    Button(
-                                        onClick = ::exitApplication,
-                                        modifier = Modifier.size(16.dp),
-                                        colors = ButtonDefaults.buttonColors(Color.Red),
-                                        border = BorderStroke(1.dp, borderColor)
-                                    ) {
-
-                                    }
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Button(
-                                        onClick = { window.isMinimized = true },
-                                        modifier = Modifier.size(16.dp),
-                                        colors = ButtonDefaults.buttonColors(Color.Yellow),
-                                        border = BorderStroke(1.dp, borderColor)
-                                    ) {
-
-                                    }
-                                }*/
                                 Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                                     Text(
                                         text = "学生信息管理系统",

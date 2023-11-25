@@ -14,10 +14,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import define.borderColor
 import define.errorColor
-import kotlinx.coroutines.runBlocking
 import sever.StudentList
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun addScreen(screenNum: (Int) -> Unit) {
     var isTure by remember { mutableStateOf(false) }
@@ -122,7 +122,7 @@ fun addScreen(screenNum: (Int) -> Unit) {
                     }
                     if (input) {
                         val t = Thread{
-                            if (Sever.AddAStu(d,a,b,c).equals("Success")){
+                            if (Sever.addAStu(d,a,b,c).equals("Success")){
                                 stuNum = ""
                                 name = ""
                                 point = ""
