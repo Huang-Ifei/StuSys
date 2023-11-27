@@ -49,6 +49,7 @@ public class ReadOut {
         return classes;
     }
     public Student readByID(Message message){
+        System.out.println("readById:"+message.getContent());
         String filePath = "database\\" + message.getClassName() ;
         JSONObject json = JSONObject.parseObject(message.getContent());
         Long stuNum = json.getLong("stuNum");

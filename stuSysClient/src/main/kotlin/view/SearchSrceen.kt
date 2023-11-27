@@ -17,9 +17,9 @@ import sever.Student
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun searchScreen(screenNum:(Int)->Unit,studentReturn: (Student)->Unit) {
+fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
     var text by remember { mutableStateOf("") }
-    var student by remember { mutableStateOf(Student(0,"",0.0))}
+    var student by remember { mutableStateOf(Student(0, "", 0.0)) }
     var r1 by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -33,7 +33,11 @@ fun searchScreen(screenNum:(Int)->Unit,studentReturn: (Student)->Unit) {
         Text(text = "输入学号：", fontSize = 14.sp, modifier = Modifier.width(560.dp))
         OutlinedTextField(
             value = text,
-            onValueChange = { text = it;r1 = false },
+            onValueChange = {
+                text = it
+                r1 = false
+                student=Student(0,"",0.0)
+            },
             isError = r1,
             modifier = Modifier.width(560.dp),
             singleLine = true,
@@ -46,13 +50,13 @@ fun searchScreen(screenNum:(Int)->Unit,studentReturn: (Student)->Unit) {
                         .clickable {
                             var num = 0L
                             try {
-                                num=text.toLong()
+                                num = text.toLong()
                             } catch (e: Exception) {
                                 r1 = true
                             }
-                            if (!r1){
-                                val t = Thread{
-                                    student= Sever.getAStu(num)
+                            if (!r1) {
+                                val t = Thread {
+                                    student = Sever.getAStu(num)
                                 }
                                 t.start()
                             }
@@ -61,17 +65,20 @@ fun searchScreen(screenNum:(Int)->Unit,studentReturn: (Student)->Unit) {
             }
         )
         Spacer(modifier = Modifier.height(5.dp))
-        if (student.name!=""&&student.name!="未找到学生"&&student.name!="IO错误"&&student.name!="程序损坏！"){
-            r1=false
+        if (!student.name.equals("") && !student.name.equals("未找到学生") && !student.name.equals("IO错误") && !student.name.equals("程序损坏！")) {
+            r1 = false
             studentReturn(student)
             screenNum(3)
-        }else if (student.name=="IO错误"){
+        } else if (student.name.equals("IO错误")) {
             Text(text = "IO错误", color = errorColor)
-        }else if (student.name=="程序损坏！"){
+        } else if (student.name.equals("程序损坏！")) {
             Text(text = "程序可能已经损坏！ClassNotFound！", color = errorColor)
-        }else if (student.name=="未找到学生"){
-            r1=true
+        } else if (student.name.equals("未找到学生")) {
+            r1 = true
             Text(text = "未找到学生", color = errorColor)
+        } else if (student.name.equals("服务器错误")) {
+            r1 = true
+            Text(text = "服务器错误", color = errorColor)
         }
         Spacer(modifier = Modifier.height(30.dp))
     }
