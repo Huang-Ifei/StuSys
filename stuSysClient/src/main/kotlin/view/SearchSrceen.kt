@@ -1,5 +1,6 @@
 package view
 
+import Sever
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,7 @@ import sever.Student
 @Composable
 fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
     var text by remember { mutableStateOf("") }
-    var student by remember { mutableStateOf(Student(0, "", 0.0)) }
+    var student by remember { mutableStateOf(Student(0, "", "","")) }
     var r1 by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -36,7 +37,7 @@ fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
             onValueChange = {
                 text = it
                 r1 = false
-                student=Student(0,"",0.0)
+                student=Student(0,"","","")
             },
             isError = r1,
             modifier = Modifier.width(560.dp),

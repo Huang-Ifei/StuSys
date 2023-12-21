@@ -4,21 +4,38 @@ import java.io.Serializable;
 
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
-    private long stuNum;
+    private long id;
     private String name;
-    private double point;
-    public Student(long studentNum, String name, double point) {
-        this.stuNum = studentNum;
-        this.name=name;
-        this.point=point;
+    private String sex;
+    private String address;
+    public Student(long id, String name, String sex, String address) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.address = address;
     }
-    public double getPoint(){
-        return point;
+    public Student() {
     }
+    public Student(String name){
+        this.id = 0L;
+        this.name = name;
+        this.sex = "sex";
+        this.address = "address";
+    }
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
-    public long getStuNum() {
-        return stuNum;
+
+    public String getSex() {
+        return sex;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
 }

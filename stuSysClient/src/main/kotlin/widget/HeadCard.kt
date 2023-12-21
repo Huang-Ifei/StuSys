@@ -27,11 +27,33 @@ fun headCard(){
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "学号", modifier = Modifier.width(150.dp))
+            Text(text = "学号", modifier = Modifier.width(120.dp), textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.width(10.dp))
             Text(text = "姓名", modifier = Modifier.width(100.dp), textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "成绩", modifier = Modifier.width(100.dp), textAlign = TextAlign.End)
+            Text(text = "性别", modifier = Modifier.width(50.dp), textAlign = TextAlign.Center)
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = "家庭住址", modifier = Modifier.width(180.dp), textAlign = TextAlign.Center)
+        }
+    }
+}
+
+@Composable
+fun headTestCard(){
+    Card(
+        modifier = Modifier.fillMaxWidth().height(55.dp).padding(horizontal = 10.dp),
+        elevation = CardDefaults.cardElevation(0.dp),
+        shape = AbsoluteRoundedCornerShape(10.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxSize().background(color = Color(244, 244, 246)),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "学号", modifier = Modifier.width(120.dp), textAlign = TextAlign.Center)
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = "成绩", modifier = Modifier.width(60.dp), textAlign = TextAlign.Center)
+            Spacer(modifier = Modifier.width(10.dp))
         }
     }
 }

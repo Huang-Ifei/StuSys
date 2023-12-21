@@ -2,6 +2,7 @@ package view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,12 +12,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import define.borderColor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import sever.Student
+import sever.TestPointList
 import widget.headCard
 import widget.outPutCard
+import widget.outPutTestCard
+import widget.personTestCard
 
 @Composable
 fun personScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Student) -> Unit) {
+    var testPointList by remember { mutableStateOf(TestPointList()) }
+    LaunchedEffect(Unit){
+        testPointList = withContext(Dispatchers.IO){
+            Sever.getAStuTest(student.id)
+        }
+    }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -31,6 +43,13 @@ fun personScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
             headCard()
             outPutCard(student, screenNum, studentReturn)
             Spacer(modifier = Modifier.height(5.dp))
+        }
+        Card (colors = CardDefaults.cardColors(Color(244, 244, 246))) {
+            LazyColumn (modifier = Modifier.size(620.dp,200.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                items(testPointList.testPointList.size){
+                    personTestCard(testPointList.testPointList[it])
+                }
+            }
         }
         Row(
             horizontalArrangement = Arrangement.End,

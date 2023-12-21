@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import define.primary
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import sever.Student
@@ -51,7 +50,7 @@ fun outputScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
     var show by remember { mutableStateOf(false) }
     var list by remember { mutableStateOf(StudentList()) }
     var classList by remember { mutableStateOf(Sever.getBasicClasses()) }
-    var showList by remember { mutableStateOf(list.stuList) }
+    var showList by remember { mutableStateOf(list.numSortOutput()) }
     //协程赋值
     LaunchedEffect(Unit) {
         list = withContext(Dispatchers.IO) {
@@ -69,39 +68,12 @@ fun outputScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
         label = "",
         animationSpec = tween(500)
     )
-    Box() {
+    Box {
         Column {
             Box(modifier = Modifier.height(55.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxHeight()) {
                     Spacer(modifier = Modifier.width(20.dp))
                     Text(text = "学生表:", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
-                }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Button(
-                        onClick = { show = false;showList = list.numSortOutput();show = true },
-                        colors = ButtonDefaults.buttonColors(containerColor = primary, contentColor = Color.White),
-                    ) {
-                        Text(text = "学号顺序", fontSize = 13.sp)
-                    }
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Button(
-                        onClick = { show = false;showList = list.sortLowOutput();show = true },
-                        colors = ButtonDefaults.buttonColors(containerColor = primary, contentColor = Color.White)
-                    ) {
-                        Text(text = "成绩顺序", fontSize = 13.sp)
-                    }
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Button(
-                        onClick = { show = false;showList = list.sortTopOutput();show = true },
-                        colors = ButtonDefaults.buttonColors(containerColor = primary, contentColor = Color.White)
-                    ) {
-                        Text(text = "成绩逆序", fontSize = 13.sp)
-                    }
-                    Spacer(modifier = Modifier.width(20.dp))
                 }
             }
             headCard()

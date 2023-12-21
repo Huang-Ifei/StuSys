@@ -14,23 +14,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import define.borderColor
 import define.errorColor
-import sever.StudentList
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun addScreen(screenNum: (Int) -> Unit) {
     var isTure by remember { mutableStateOf(false) }
-    var stuClass by remember { mutableStateOf(StudentList()) }
     var r1 by remember { mutableStateOf(false) }
     var r2 by remember { mutableStateOf(false) }
     var r3 by remember { mutableStateOf(false) }
     var netError by remember { mutableStateOf(false) }
     var stuNum by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
-    var point by remember { mutableStateOf("") }
+    var sex by remember { mutableStateOf("男/女") }
+    var address by remember { mutableStateOf("") }
     var buttonText by remember { mutableStateOf("确认录入信息") }
-    stuClass.createdClass()
     if (!isTure) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -52,26 +50,35 @@ fun addScreen(screenNum: (Int) -> Unit) {
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = "输入姓名：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it;r2 = false },
-                isError = r2,
-                modifier = Modifier.width(280.dp),
-                singleLine = true,
-                textStyle = TextStyle(fontSize = 16.sp)
-            )
-
+            Row {
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it;r2 = false },
+                    isError = r2,
+                    modifier = Modifier.width(200.dp),
+                    singleLine = true,
+                    textStyle = TextStyle(fontSize = 16.sp)
+                )
+                Spacer(Modifier.width(10.dp))
+                OutlinedTextField(
+                    value = sex,
+                    onValueChange = { sex = it;r3 = false },
+                    isError = r3,
+                    modifier = Modifier.width(70.dp),
+                    singleLine = true,
+                    textStyle = TextStyle(fontSize = 16.sp)
+                )
+            }
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = "输入成绩：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
+            Text(text = "输入地址：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
             OutlinedTextField(
-                value = point,
-                onValueChange = { point = it;r3 = false },
-                isError = r3,
+                value = address,
+                onValueChange = { address = it},
                 modifier = Modifier.width(280.dp),
                 singleLine = true,
                 textStyle = TextStyle(fontSize = 16.sp)
             )
-            if (r1 != false || r2 != false || r3 != false) {
+            if (r1 || r2 || r3) {
                 Text(text = "输入的数据有误", color = errorColor)
                 Spacer(modifier = Modifier.height(2.dp))
             } else if(netError){
@@ -90,7 +97,6 @@ fun addScreen(screenNum: (Int) -> Unit) {
                     r3 = false
                     var a = 0L
                     var b = ""
-                    var c = 0.0
                     var d = ""
                     try {
                         a = stuNum.toLong()
@@ -113,19 +119,17 @@ fun addScreen(screenNum: (Int) -> Unit) {
                         r2 = true
                         buttonText="确认录入信息"
                     }
-                    try {
-                        c = point.toDouble()
-                    } catch (e: Exception) {
+                    if(!sex.equals("男")&&!sex.equals("女")){
                         input = false
                         r3 = true
                         buttonText="确认录入信息"
                     }
                     if (input) {
                         val t = Thread{
-                            if (Sever.addAStu(d,a,b,c).equals("Success")){
+                            if (Sever.addAStu(d,a,b,sex,address).equals("Success")){
                                 stuNum = ""
                                 name = ""
-                                point = ""
+                                sex = ""
                                 netError = false
                                 isTure = true
                             }else {
@@ -136,7 +140,6 @@ fun addScreen(screenNum: (Int) -> Unit) {
                         t.start()
                     }
                 }, modifier = Modifier.size(280.dp, 55.dp),
-                // colors = ButtonDefaults.buttonColors(containerColor = primary, contentColor = Color.White)
                 shape = AbsoluteRoundedCornerShape(5.dp)
             ) {
                 Text(buttonText)

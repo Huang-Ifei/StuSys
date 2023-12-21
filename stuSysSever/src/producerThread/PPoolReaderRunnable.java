@@ -28,7 +28,6 @@ public class PPoolReaderRunnable implements Runnable {
         ObjectInputStream ois = null;
         ObjectOutputStream oos = null;
         try {
-
             while (true) {
                 ois = new ObjectInputStream(this.socket.getInputStream());
                 Message message = (Message) ois.readObject();

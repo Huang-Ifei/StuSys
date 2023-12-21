@@ -25,12 +25,15 @@ fun deleteScreen(screenNum:(Int)->Unit,student: Student){
     ) {
         Row (verticalAlignment = Alignment.CenterVertically){
             Text(text = "正在删除：", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
-            Text(text = student.stuNum.toString(), fontSize = 22.sp)
+            Text(text = student.id.toString(), fontSize = 22.sp)
         }
         Spacer(modifier = Modifier.height(5.dp))
         Row {
             Button(onClick = {
-                if (Sever.deleteAStu((student.stuNum/100).toString(),student.stuNum,student.name,student.point).equals("Success")) isDelete=true
+                val t = Thread{
+                    if (Sever.deleteAStu((student.id/100).toString(),student.id,student.name).equals("Success")) isDelete=true
+                }
+                t.start()
             }) {
                 Text(text = "确认删除")
             }

@@ -18,11 +18,12 @@ import sever.Student
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Student) -> Unit) {
+fun updateScreen(screenNum: (Int) -> Unit, student: Student) {
     var isTure by remember { mutableStateOf(false) }
-    var stuNum by remember { mutableStateOf(student.stuNum.toString()) }
+    var id by remember { mutableStateOf(student.id.toString()) }
     var name by remember { mutableStateOf(student.name) }
-    var point by remember { mutableStateOf(student.point.toString()) }
+    var sex by remember { mutableStateOf(student.sex) }
+    var address by remember { mutableStateOf(student.address) }
     var netError by remember { mutableStateOf(false) }
     var r1 by remember { mutableStateOf(false) }
     var r2 by remember { mutableStateOf(false) }
@@ -40,8 +41,8 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = "输入学号：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
             OutlinedTextField(
-                value = stuNum,
-                onValueChange = { stuNum = it;r1 = false },
+                value = id,
+                onValueChange = { id = it;r1 = false },
                 isError = r1,
                 modifier = Modifier.width(280.dp),
                 singleLine = true,
@@ -50,26 +51,35 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = "输入姓名：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it;r2 = false },
-                isError = r2,
-                modifier = Modifier.width(280.dp),
-                singleLine = true,
-                textStyle = TextStyle(fontSize = 16.sp)
-            )
-
+            Row {
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it;r2 = false },
+                    isError = r2,
+                    modifier = Modifier.width(200.dp),
+                    singleLine = true,
+                    textStyle = TextStyle(fontSize = 16.sp)
+                )
+                Spacer(Modifier.width(10.dp))
+                OutlinedTextField(
+                    value = sex,
+                    onValueChange = { sex = it;r3 = false },
+                    isError = r3,
+                    modifier = Modifier.width(70.dp),
+                    singleLine = true,
+                    textStyle = TextStyle(fontSize = 16.sp)
+                )
+            }
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = "输入成绩：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
+            Text(text = "输入地址：", fontSize = 14.sp, modifier = Modifier.width(280.dp))
             OutlinedTextField(
-                value = point,
-                onValueChange = { point = it;r3 = false },
-                isError = r3,
+                value = address,
+                onValueChange = { address = it},
                 modifier = Modifier.width(280.dp),
                 singleLine = true,
                 textStyle = TextStyle(fontSize = 16.sp)
             )
-            if (r1 != false || r2 != false || r3 != false) {
+            if (r1 || r2 || r3) {
                 Text(text = "输入的数据有误", color = errorColor)
                 Spacer(modifier = Modifier.height(2.dp))
             } else if(netError){
@@ -88,41 +98,43 @@ fun updateScreen(screenNum: (Int) -> Unit, student: Student, studentReturn: (Stu
                     r3 = false
                     var a = 0L
                     var b = ""
-                    var c = 0.0
                     var d = ""
                     try {
-                        a = stuNum.toLong()
+                        a = id.toLong()
                         d= (a/100).toString()
                     } catch (e: Exception) {
                         input = false
                         r1 = true
+                        buttonText="确认更新信息"
                     }
                     try {
                         if (name != "") b = name
                         else {
                             input = false
                             r2 = true
+                            buttonText="确认更新信息"
                         }
                     } catch (e: Exception) {
                         input = false
                         r2 = true
+                        buttonText="确认更新信息"
                     }
-                    try {
-                        c = point.toDouble()
-                    } catch (e: Exception) {
+                    if(!sex.equals("男")&&!sex.equals("女")){
                         input = false
                         r3 = true
+                        buttonText="确认更新信息"
                     }
                     if (input) {
                         val t = Thread{
-                            if (Sever.changeAStu(d,a,b,c).equals("Success")){
-                                stuNum = ""
+                            if (Sever.changeAStu(d,a,b,sex,address).equals("Success")){
+                                id = ""
                                 name = ""
-                                point = ""
+                                sex = ""
                                 netError = false
                                 isTure = true
                             }else {
                                 netError = true
+                                buttonText="确认更新信息"
                             }
                             buttonText="确认录入信息"
                         }

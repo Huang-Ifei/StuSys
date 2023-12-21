@@ -1,17 +1,19 @@
 package sever;
 
-/**
- * @author 赖俊业
- * @create 2023-06-19 10:32
- * 表示消息类型有哪些
- */
 public interface MessageType {
-    String MESSAGE_CREATE="1";//创建class和分区
-    String MESSAGE_COMM_MES="2";//普通信息包
-    String MESSAGE_READ="3";//请求按条读取分区文件夹中的数据
-    String MESSAGE_READ_BY_NAME="4";
-    String MESSAGE_READ_BY_ID="5";
-    String MESSAGE_READ_CLASS="6";
-    String MESSAGE_CHANGE_STU="7";
-    String MESSAGE_DELETE_STU="8";
+    String MESSAGE_CREATE="MESSAGE_CREATE";//创建class
+    String MESSAGE_ADD_STU="MESSAGE_COMM_MES";//普通信息包
+    String MESSAGE_READ="MESSAGE_READ";//请求按条读取分区文件夹中的数据
+    String MESSAGE_READ_BY_NAME="MESSAGE_READ_BY_NAME";
+    String MESSAGE_READ_BY_ID="MESSAGE_READ_BY_ID";
+    String MESSAGE_READ_CLASS="MESSAGE_READ_CLASS";
+    String MESSAGE_CHANGE_STU="MESSAGE_CHANGE_STU";
+    String MESSAGE_DELETE_STU="MESSAGE_DELETE_STU";
+
+
+    String MESSAGE_READ_STU_TESTS="MESSAGE_READ_STU_TESTS";
+    String MESSAGE_READ_TESTS="MESSAGE_READ_TESTS";
+    String MESSAGE_READ_TEST_POINTS="MESSAGE_READ_TEST_POINTS";
+    String MESSAGE_CREATE_TEST="MESSAGE_CREATE_TEST";
+    String MESSAGE_DELETE_TEST="MESSAGE_DELETE_TEST";
 }

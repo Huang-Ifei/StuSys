@@ -62,7 +62,7 @@ fun main() = application {
                             Box {
                                 Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                                     Text(
-                                        text = "学生信息管理系统",
+                                        text = "华北科技学院学生信息管理教务系统",
                                         fontSize = 22.sp,
                                     )
                                 }
