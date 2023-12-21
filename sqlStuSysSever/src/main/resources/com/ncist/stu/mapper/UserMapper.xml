@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ncist.stu.mapper.UserMapper">
+    <insert id="insertStu">
+        INSERT INTO ncist_stu.${className} VALUES(#{id},#{name},#{sex},#{address});
+    </insert>
+    <select id="getStuById" resultType="Map">
+        SELECT * FROM ncist_stu.${className} WHERE id = #{id};
+    </select>
+    <select id="getAStuById" resultType="Student">
+        SELECT * FROM ncist_stu.${className} WHERE id = #{id};
+    </select>
+    <select id="getUserByName" resultType="Map">
+        SELECT * FROM ncist_stu.${className} WHERE name = #{name};
+    </select>
+    <select id="getStuList" resultType="Map">
+        SELECT * FROM ncist_stu.${className};
+    </select>
+    <select id="getAClassStu" resultType="Student">
+        SELECT * FROM ncist_stu.${className};
+    </select>
+    <delete id="deleteById">
+        DELETE FROM ncist_stu.${className} WHERE id = #{id}
+    </delete>
+    <delete id="deleteColumn">
+        ALTER TABLE ncist_stu.${className} DROP COLUMN #{column};
+    </delete>
+    <select id="getAllClasses" resultType="Map">
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = 'ncist_stu';
+    </select>
+    <update id="createTable">
+        CREATE TABLE ncist_stu.${className} AS SELECT * FROM ncist_stu.base;
+    </update>
+    <update id="updateStu">
+        UPDATE ncist_stu.${className} SET name = #{name},sex = #{sex},address = #{address} WHERE id = #{id};
+    </update>
+
+    <select id="getAllTest" resultType="Map">
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = 'ncist_test';
+    </select>
+    <select id="getPoint" resultType="TestPoint">
+        SELECT * FROM ncist_test.${testName} where id = #{id};
+    </select>
+    <update id="createTest">
+        CREATE TABLE ncist_test.${testName} (
+        `id` BIGINT NOT NULL,
+        `point` DOUBLE NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+    </update>
+    <insert id="insertPoint">
+        INSERT INTO ncist_test.${testName} VALUES(#{id},#{point});
+    </insert>
+    <select id="getATestPoint" resultType="TestPoint">
+        SELECT * FROM ncist_test.${testName};
+    </select>
+    <update id="changePoint">
+        UPDATE ncist_test.${testName} SET point = #{point} WHERE id = #{id};
+    </update>
+    <delete id="deletePoint">
+        DELETE FROM ncist_test.${testName} WHERE id=#{id};
+    </delete>
+    <delete id="deleteTest">
+        DROP TABLE ncist_test.${testName}
+    </delete>
+</mapper>
