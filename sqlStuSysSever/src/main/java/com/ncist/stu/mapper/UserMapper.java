@@ -2,8 +2,8 @@ package com.ncist.stu.mapper;
 
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
-import sever.Student;
-import sever.TestPoint;
+import com.ncist.stu.sever.Student;
+import com.ncist.stu.sever.TestPoint;
 
 import java.util.List;
 import java.util.Map;

@@ -9,8 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.ncist.stu.sever.Student
 import define.borderColor
-import sever.Student
 import widget.columnButton
 
 @Composable

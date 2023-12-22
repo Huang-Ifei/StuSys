@@ -5,8 +5,7 @@
 <configuration>
     <properties resource="jdbc.properties"/>
     <typeAliases>
-        <package name="java.lang"/>
-        <package name="sever"/>
+        <package name="com.ncist.stu.sever"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">

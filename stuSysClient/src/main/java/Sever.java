@@ -1,6 +1,6 @@
 
 import com.alibaba.fastjson2.JSONObject;
-import sever.*;
+import com.ncist.stu.sever.*;
 
 import java.io.*;
 import java.net.InetAddress;

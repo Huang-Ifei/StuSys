@@ -8,16 +8,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ncist.stu.sever.Student
+import com.ncist.stu.sever.TestPoint
 import define.borderColor
-import sever.Student
-import sever.TestPoint
-import sever.TestPointList
 import java.text.DecimalFormat
-import kotlin.math.absoluteValue
 
 @Composable
 fun outPutCard(student: Student, screenNum: (Int) -> Unit, studentReturn: (Student)->Unit) {

@@ -12,9 +12,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ncist.stu.sever.Student
 import define.borderColor
 import define.errorColor
-import sever.Student
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

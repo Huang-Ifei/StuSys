@@ -1,7 +1,6 @@
 package view
 
-import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.animation.core.tween
+import Sever.getTestPoints
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,15 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ncist.stu.sever.TestPointList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import sever.TestPoint
-import sever.TestPointList
 import widget.headTestCard
 import widget.outPutTestCard
+import com.ncist.stu.sever.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +28,7 @@ fun gradePointManagement() {
     var show by remember { mutableStateOf(false) }
     var testList by remember { mutableStateOf(Sever.getBasicClasses()) }
     var listName by remember { mutableStateOf("选择成绩表") }
-    var pointList by remember { mutableStateOf(Sever.getTestPoints(listName)) }
+    var pointList by remember { mutableStateOf(getTestPoints(listName)) }
     var new by remember { mutableStateOf(false) }
     var deleteButtonText by remember { mutableStateOf("删除此测试表") }
     //协程赋值
@@ -55,7 +53,7 @@ fun gradePointManagement() {
                             Sever.saveTestPoint(pointList, listName)
                             Thread.sleep(500)
                             pointList = TestPointList()
-                            pointList = Sever.getTestPoints(listName)
+                            pointList = getTestPoints(listName)
                             testList = Sever.getTests()
                             show = false
                             show = true
@@ -138,7 +136,7 @@ fun gradePointManagement() {
                                     deleteButtonText="删除此测试表"
                                     val t = Thread {
                                         pointList = TestPointList()
-                                        pointList = Sever.getTestPoints(listName)
+                                        pointList = getTestPoints(listName)
                                         new = false
                                         show = false
                                         show = true
