@@ -21,7 +21,6 @@ public class Sever {
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
             line = br.readLine();
-            br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
             Socket socket = new Socket(address, Integer.parseInt(line));
@@ -44,7 +43,6 @@ public class Sever {
         try {
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
-            br.readLine();
             line = br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
@@ -76,7 +74,6 @@ public class Sever {
             Message message = new Message(MessageType.MESSAGE_READ_CLASS, "", "");
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
-            br.readLine();
             line = br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
@@ -109,7 +106,6 @@ public class Sever {
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
             line = br.readLine();
-            br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
             Socket socket = new Socket(address, Integer.parseInt(line));
@@ -133,7 +129,6 @@ public class Sever {
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
             line = br.readLine();
-            br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
             Socket socket = new Socket(address, Integer.parseInt(line));
@@ -157,7 +152,6 @@ public class Sever {
             Message message = new Message(MessageType.MESSAGE_READ_BY_ID, object.toString(),l.toString());
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
-            br.readLine();
             line = br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
@@ -183,7 +177,6 @@ public class Sever {
             Message message = new Message(MessageType.MESSAGE_READ_TESTS, "", "");
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
-            br.readLine();
             line = br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
@@ -213,7 +206,6 @@ public class Sever {
             Message message = new Message(MessageType.MESSAGE_READ_TEST_POINTS, "", testName);
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
-            br.readLine();
             line = br.readLine();
             String host = br.readLine();
             br.close();
@@ -247,7 +239,6 @@ public class Sever {
         try{
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             line = br.readLine();
-            br.readLine();
             host = br.readLine();
             br.close();
             address = InetAddress.getByName(host);
@@ -279,7 +270,6 @@ public class Sever {
         InetAddress address;
         try{
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
-            br.readLine();
             line = br.readLine();
             host = br.readLine();
             br.close();
@@ -312,7 +302,6 @@ public class Sever {
             BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\sever\\IP"));
             String line;
             line = br.readLine();
-            br.readLine();
             String host = br.readLine();
             InetAddress address = InetAddress.getByName(host);
             Socket socket = new Socket(address, Integer.parseInt(line));

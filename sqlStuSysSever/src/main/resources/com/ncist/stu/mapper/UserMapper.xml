@@ -34,12 +34,17 @@
         WHERE table_schema = 'ncist_stu';
     </select>
     <update id="createTable">
-        CREATE TABLE ncist_stu.${className} AS SELECT * FROM ncist_stu.base;
+        CREATE TABLE ncist_stu.${className} (
+        `id` BIGINT NOT NULL,
+        `name` VARCHAR(10) NULL,
+        `sex` VARCHAR(2) NULL,
+        `address` VARCHAR(30) NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `id_UNIQUE` (`id` ASC));
     </update>
     <update id="updateStu">
         UPDATE ncist_stu.${className} SET name = #{name},sex = #{sex},address = #{address} WHERE id = #{id};
     </update>
-
     <select id="getAllTest" resultType="Map">
         SELECT table_name
         FROM information_schema.tables

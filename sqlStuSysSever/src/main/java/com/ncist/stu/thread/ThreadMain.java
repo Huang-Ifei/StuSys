@@ -15,8 +15,8 @@ public class ThreadMain extends Thread{
             //创建serverSocket对象，同时为服务器注册端口
             ServerSocket serverSocket = new ServerSocket(9768);
 
-            ThreadPoolExecutor pool = new ThreadPoolExecutor(20 * 2, //核心线程数
-                    20 * 2,//最大线程数
+            ThreadPoolExecutor pool = new ThreadPoolExecutor(1000, //核心线程数
+                    1000,//最大线程数
                     0, //最大空闲时间
                     TimeUnit.SECONDS,//时间单位
                     new ArrayBlockingQueue<>(8), //阻塞队列

@@ -17,21 +17,19 @@ import java.io.FileReader
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun settingsScreen() {
-    var pIP by remember { mutableStateOf(9766) }
-    var rIP by remember { mutableStateOf(9768) }
+    var IP by remember { mutableStateOf(9766) }
     var host by remember { mutableStateOf("") }
 
     try {
         val fis = FileReader("src\\main\\java\\sever\\IP")
         val ip =  fis.readText()
         val list =  ip.lines()
-        pIP=list[0].toInt()
-        rIP=list[1].toInt()
-        host=list[2]
+        IP=list[0].toInt()
+        host=list[1]
         fis.close()
     }catch (e:Exception){
         val fos = FileOutputStream("src\\main\\java\\sever\\IP",false)
-        fos.write((pIP.toString()+"\n"+rIP.toString()+"\n"+host).toByteArray())
+        fos.write((IP.toString()+"\n"+host).toByteArray())
         fos.close()
     }
     Column(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
@@ -42,53 +40,24 @@ fun settingsScreen() {
         Spacer(modifier = Modifier.height(20.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "设置写入端口：", fontWeight = FontWeight.SemiBold)
+            Text(text = "设置端口：", fontWeight = FontWeight.SemiBold)
             OutlinedTextField(
-                value = pIP.toString(),
+                value = IP.toString(),
                 onValueChange = {
                     try {
-                        pIP=it.toInt()
+                        IP=it.toInt()
                         val fos = FileOutputStream("src\\main\\java\\sever\\IP",false)
-                        fos.write((pIP.toString()+"\n"+rIP.toString()+"\n"+host).toByteArray())
+                        fos.write((IP.toString()+"\n"+host).toByteArray())
                         fos.close()
                         val fis = FileReader("src\\main\\java\\sever\\IP")
                         val ip =  fis.readText()
                         val list =  ip.lines()
-                        pIP=list[0].toInt()
-                        rIP=list[1].toInt()
-                        host=list[2]
+                        IP=list[0].toInt()
+                        host=list[1]
                         fis.close()
                     }catch (e:Exception){
                         val fos = FileOutputStream("src\\main\\java\\sever\\IP")
-                        fos.write((pIP.toString()+"\n"+rIP.toString()).toByteArray())
-                    }
-                },
-                textStyle = TextStyle(fontSize = 16.sp),
-                singleLine = true
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "设置读取端口：", fontWeight = FontWeight.SemiBold)
-            OutlinedTextField(
-                value = rIP.toString(),
-                onValueChange = {
-                    try {
-                        rIP=it.toInt()
-                        val fos = FileOutputStream("src\\main\\java\\sever\\IP",false)
-                        fos.write((pIP.toString()+"\n"+rIP.toString()+"\n"+host).toByteArray())
-                        fos.close()
-                        val fis = FileReader("src\\main\\java\\sever\\IP")
-                        val ip =  fis.readText()
-                        val list =  ip.lines()
-                        pIP=list[0].toInt()
-                        rIP=list[1].toInt()
-                        host=list[2]
-                        fis.close()
-                    }catch (e:Exception){
-                        val fos = FileOutputStream("src\\main\\java\\sever\\IP")
-                        fos.write((pIP.toString()+"\n"+rIP.toString()).toByteArray())
+                        fos.write((IP.toString()).toByteArray())
                     }
                 },
                 textStyle = TextStyle(fontSize = 16.sp),
@@ -105,18 +74,17 @@ fun settingsScreen() {
                     try {
                         host=it
                         val fos = FileOutputStream("src\\main\\java\\sever\\IP",false)
-                        fos.write((pIP.toString()+"\n"+rIP.toString()+"\n"+host).toByteArray())
+                        fos.write((IP.toString()+"\n"+host).toByteArray())
                         fos.close()
                         val fis = FileReader("src\\main\\java\\sever\\IP")
                         val ip =  fis.readText()
                         val list =  ip.lines()
-                        pIP=list[0].toInt()
-                        rIP=list[1].toInt()
-                        host=list[2]
+                        IP=list[0].toInt()
+                        host=list[1]
                         fis.close()
                     }catch (e:Exception){
                         val fos = FileOutputStream("src\\main\\java\\sever\\IP")
-                        fos.write((pIP.toString()+"\n"+rIP.toString()).toByteArray())
+                        fos.write((IP.toString()+"\n"+host).toByteArray())
                     }
                 },
                 textStyle = TextStyle(fontSize = 16.sp),

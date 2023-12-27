@@ -104,7 +104,7 @@ fun gradePointManagement() {
             Spacer(modifier = Modifier.height(10.dp))
             Divider(modifier = Modifier.width(190.dp), color = define.borderColor)
             LazyColumn(
-                modifier = Modifier.width(180.dp),
+                modifier = Modifier.width(190.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {

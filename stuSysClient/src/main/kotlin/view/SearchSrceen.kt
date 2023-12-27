@@ -21,7 +21,7 @@ import define.errorColor
 @Composable
 fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
     var text by remember { mutableStateOf("") }
-    var student by remember { mutableStateOf(Student(0, "", "","")) }
+    var student by remember { mutableStateOf(Student(0, "", "", "")) }
     var r1 by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -38,7 +38,7 @@ fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
             onValueChange = {
                 text = it
                 r1 = false
-                student=Student(0,"","","")
+                student = Student(0, "", "", "")
             },
             isError = r1,
             modifier = Modifier.width(560.dp),
@@ -67,11 +67,7 @@ fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
             }
         )
         Spacer(modifier = Modifier.height(5.dp))
-        if (!student.name.equals("") && !student.name.equals("未找到学生") && !student.name.equals("IO错误") && !student.name.equals("程序损坏！")) {
-            r1 = false
-            studentReturn(student)
-            screenNum(3)
-        } else if (student.name.equals("IO错误")) {
+        if (student.name.equals("IO错误")) {
             Text(text = "IO错误", color = errorColor)
         } else if (student.name.equals("程序损坏！")) {
             Text(text = "程序可能已经损坏！ClassNotFound！", color = errorColor)
@@ -81,6 +77,10 @@ fun searchScreen(screenNum: (Int) -> Unit, studentReturn: (Student) -> Unit) {
         } else if (student.name.equals("服务器错误")) {
             r1 = true
             Text(text = "服务器错误", color = errorColor)
+        } else if (!student.name.equals("")) {
+            r1 = false
+            studentReturn(student)
+            screenNum(3)
         }
         Spacer(modifier = Modifier.height(30.dp))
     }

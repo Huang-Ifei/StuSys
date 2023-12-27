@@ -54,9 +54,14 @@ public class ReadOut {
         System.out.println(jsonObject.getLong("id"));
         try {
              student = mapper.getAStuById(className,jsonObject.getLong("id"));
-        }catch (Exception e){
+            student.getName();
+        } catch (NullPointerException e){
+            System.out.println("&&&Can't Found Student");
+            return new Student(0,"未找到学生","","");
+        }
+        catch (Exception e){
             System.out.println("&&&Error: "+e);
-            return new Student("未找到学生");
+            return new Student(0,"服务器错误","","");
         }
         return student;
     }
